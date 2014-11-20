@@ -647,7 +647,7 @@
         "isPrivate": false,
         "fires": [],
         "ignore": false,
-        "code": "that.startAudioCall = function (params) {\n        params = params || {};\n        params.connectionId = that.id;\n        params.constraints = {\n            video : false,\n            audio : true,\n            optional: [],\n            mandatory: {}\n        };\n        return that.startCall(params);\n    };",
+        "code": "that.startAudioCall = function (params) {\n        params = params || {};\n        params.connectionId = that.id;\n        params.constraints = {\n            video: false,\n            audio: true,\n            optional: [],\n            mandatory: {}\n        };\n        return that.startCall(params);\n    };",
         "ctx": {
             "type": "method",
             "receiver": "that",

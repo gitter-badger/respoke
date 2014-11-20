@@ -304,7 +304,7 @@
         "isPrivate": false,
         "fires": [],
         "ignore": false,
-        "code": "that.connections = [];\n    client.listen('disconnect', function disconnectHandler() {\n        that.connections = [];\n    });\n\n\n    var resolveEndpointPresence = params.resolveEndpointPresence;\n    delete that.resolveEndpointPresence;",
+        "code": "that.connections = [];\n    client.listen('disconnect', function disconnectHandler() {\n        that.connections = [];\n    });\n\n    var resolveEndpointPresence = params.resolveEndpointPresence;\n    delete that.resolveEndpointPresence;",
         "ctx": {
             "type": "property",
             "receiver": "that",
@@ -559,7 +559,7 @@
         "isPrivate": false,
         "fires": [],
         "ignore": false,
-        "code": "that.startAudioCall = function (params) {\n        params = params || {};\n        params.constraints = {\n            video : false,\n            audio : true,\n            optional: [],\n            mandatory: {}\n        };\n        return that.startCall(params);\n    };",
+        "code": "that.startAudioCall = function (params) {\n        params = params || {};\n        params.constraints = {\n            video: false,\n            audio: true,\n            optional: [],\n            mandatory: {}\n        };\n        return that.startCall(params);\n    };",
         "ctx": {
             "type": "method",
             "receiver": "that",
@@ -738,7 +738,7 @@
         "isPrivate": false,
         "fires": [],
         "ignore": false,
-        "code": "that.startVideoCall = function (params) {\n        params = params || {};\n        params.constraints = {\n            video : true,\n            audio : true,\n            optional: [],\n            mandatory: {}\n        };\n        return that.startCall(params);\n    };",
+        "code": "that.startVideoCall = function (params) {\n        params = params || {};\n        params.constraints = {\n            video: true,\n            audio: true,\n            optional: [],\n            mandatory: {}\n        };\n        return that.startCall(params);\n    };",
         "ctx": {
             "type": "method",
             "receiver": "that",

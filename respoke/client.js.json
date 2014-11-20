@@ -1589,7 +1589,7 @@
         "isPrivate": false,
         "fires": [],
         "ignore": false,
-        "code": "that.listen('reconnect', clientSettings.onReconnect);\n\n            log.info('logged in as ' + that.endpointId, that);\n            deferred.resolve();\n        }, function errorHandler(err) {\n            deferred.reject(\"Couldn't create an endpoint.\");\n            log.error(err.message, err.stack);\n        });\n\n        return deferred.promise;\n    }",
+        "code": "that.listen('reconnect', clientSettings.onReconnect);\n\n            log.info('logged in as ' + that.endpointId, that);\n            deferred.resolve();\n        }, function errorHandler(err) {\n            deferred.reject(err);\n            log.error(err.message, err.stack);\n        });\n\n        return deferred.promise;\n    }",
         "ctx": {
             "type": "event",
             "name": "respoke.Client#reconnect",
@@ -2002,10 +2002,6 @@
             {
                 "type": "returns",
                 "string": "{Promise|undefined}"
-            },
-            {
-                "type": "private",
-                "visibility": "private"
             }
         ],
         "description": {
@@ -2013,7 +2009,7 @@
             "summary": "<p>Convenience method for setting presence to <code>&quot;available&quot;</code>.</p>\n",
             "body": "<p><strong>Using callbacks</strong> by passing <code>params.onSuccess</code> or <code>params.onError</code> will disable promises.</p>\n"
         },
-        "isPrivate": true,
+        "isPrivate": false,
         "fires": [],
         "ignore": false,
         "code": "that.setOnline = function (params) {\n        var promise;\n\n        params = params || {};\n        params.presence = params.presence || 'available';\n\n        try {\n            that.verifyConnected();\n        } catch (e) {\n            promise = Q.reject(e);\n            return respoke.handlePromise(promise, params.onSuccess, params.onError);\n        }\n\n        return that.setPresence(params);\n    };",
@@ -2076,10 +2072,6 @@
             {
                 "type": "returns",
                 "string": "{Promise|undefined}"
-            },
-            {
-                "type": "private",
-                "visibility": "private"
             }
         ],
         "description": {
@@ -2087,7 +2079,7 @@
             "summary": "<p>Convenience method for setting presence to <code>&quot;unavailable&quot;</code>.</p>\n",
             "body": "<p><strong>Using callbacks</strong> by passing <code>params.onSuccess</code> or <code>params.onError</code> will disable promises.</p>\n"
         },
-        "isPrivate": true,
+        "isPrivate": false,
         "fires": [],
         "ignore": false,
         "code": "that.setOffline = function (params) {\n        var promise;\n\n        params = params || {};\n        params.presence = params.presence || 'unavailable';\n\n        try {\n            that.verifyConnected();\n        } catch (e) {\n            promise = Q.reject(e);\n            return respoke.handlePromise(promise, params.onSuccess, params.onError);\n        }\n\n        return that.setPresence(params);\n    };",
@@ -2603,7 +2595,7 @@
         "isPrivate": false,
         "fires": [],
         "ignore": false,
-        "code": "that.startAudioCall = function (params) {\n        params = params || {};\n        params.constraints = {\n            video : false,\n            audio : true,\n            optional: [],\n            mandatory: {}\n        };\n        return that.startCall(params);\n    };",
+        "code": "that.startAudioCall = function (params) {\n        params = params || {};\n        params.constraints = {\n            video: false,\n            audio: true,\n            optional: [],\n            mandatory: {}\n        };\n        return that.startCall(params);\n    };",
         "ctx": {
             "type": "method",
             "receiver": "that",
@@ -2814,7 +2806,7 @@
         "isPrivate": false,
         "fires": [],
         "ignore": false,
-        "code": "that.startVideoCall = function (params) {\n        params = params || {};\n        params.constraints = {\n            video : true,\n            audio : true,\n            optional: [],\n            mandatory: {}\n        };\n        return that.startCall(params);\n    };",
+        "code": "that.startVideoCall = function (params) {\n        params = params || {};\n        params.constraints = {\n            video: true,\n            audio: true,\n            optional: [],\n            mandatory: {}\n        };\n        return that.startCall(params);\n    };",
         "ctx": {
             "type": "method",
             "receiver": "that",

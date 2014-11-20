@@ -628,7 +628,7 @@
         "tags": [
             {
                 "type": "name",
-                "string": "callDebugReportEnabled"
+                "string": "enableCallDebugReport"
             },
             {
                 "type": "type",
@@ -645,13 +645,13 @@
         "isPrivate": false,
         "fires": [],
         "ignore": false,
-        "code": "that.callDebugReportEnabled = !!params.signalingChannel.callDebugReportEnabled;",
+        "code": "that.enableCallDebugReport = params.signalingChannel.isSendingReport();",
         "ctx": {
             "type": "property",
             "receiver": "that",
-            "name": "callDebugReportEnabled",
-            "value": "!!params.signalingChannel.callDebugReportEnabled",
-            "string": "that.callDebugReportEnabled",
+            "name": "enableCallDebugReport",
+            "value": "params.signalingChannel.isSendingReport()",
+            "string": "that.enableCallDebugReport",
             "file": {
                 "input": "respoke/call.js",
                 "output": ".docs/site/respoke/call.js.json"
@@ -3796,7 +3796,7 @@
         "isPrivate": false,
         "fires": [],
         "ignore": false,
-        "code": "client.fire('call', {\n                endpoint: that.remoteEndpoint,\n                call: that\n            });\n        }, true);\n    }\n\n    pc.state.listen('idle:exit', function (evt) {\n        saveParameters(params);\n    });\n\n    pc.state.listen('preparing:entry', function (evt) {\n        init();\n\n        if (pc.state.caller === true) {\n            that.answer();\n        }\n    }, true);\n\n    signalingChannel.getTurnCredentials().then(function (result) {\n        if (!result) {\n            log.warn(\"Relay service not available.\");\n            pc.servers = {\n                iceServers: []\n            };\n        } else {\n            pc.servers = client.servers;\n            pc.servers.iceServers = result;\n        }\n    }).fin(function () {\n        pc.state.dispatch('initiate', {\n            client: client,\n            caller: that.caller\n        });\n    }).done(null, function (err) {\n        log.debug('Unexpected exception', err);\n    });\n\n    return that;\n}; // End respoke.Call",
+        "code": "client.fire('call', {\n                endpoint: that.remoteEndpoint,\n                call: that\n            });\n        }, true);\n    }\n\n    pc.state.listen('idle:exit', function (evt) {\n        saveParameters(params);\n    });\n\n    pc.state.listen('preparing:entry', function (evt) {\n        init();\n\n        if (pc.state.caller === true) {\n            that.answer();\n        }\n    }, true);\n\n    signalingChannel.getTurnCredentials().then(function (result) {\n        if (!pc) {\n            throw new Error(\"Already hung up.\");\n            return;\n        }\n        if (!result) {\n            log.warn(\"Relay service not available.\");\n            pc.servers = {iceServers: []};\n        } else {\n            pc.servers = {iceServers: result};\n        }\n    }).fin(function () {\n        if (!pc) {\n            throw new Error(\"Already hung up.\");\n            return;\n        }\n        pc.state.dispatch('initiate', {\n            client: client,\n            caller: that.caller\n        });\n    }).done(null, function (err) {\n        if (err.message !== \"Already hung up.\") {\n            log.debug('Unexpected exception', err);\n        }\n    });\n\n    return that;\n}; // End respoke.Call",
         "ctx": {
             "type": "event",
             "name": "respoke.Client#call",

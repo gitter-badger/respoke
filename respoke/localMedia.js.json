@@ -73,7 +73,7 @@
                     "HTMLVideoElement"
                 ],
                 "name": "params.element",
-                "description": "- Pass in an optional html video element to have local video attached to it."
+                "description": "- Pass in an optional html video element to have local\nvideo attached to it."
             },
             {
                 "type": "returns",
@@ -892,7 +892,7 @@
         "isPrivate": false,
         "fires": [],
         "ignore": false,
-        "code": "that.fire('requesting-media');\n            }, 500);\n            getUserMedia(that.constraints, onReceiveUserMedia, onUserMediaError);\n        } catch (e) {\n            log.error(\"Couldn't get user media: \" + e.message);\n        }\n    }",
+        "code": "that.fire('requesting-media');\n            }, 500);\n            if (respoke.useFakeMedia === true) {\n                that.constraints.fake = true;\n            }\n            getUserMedia(that.constraints, onReceiveUserMedia, onUserMediaError);\n        } catch (e) {\n            log.error(\"Couldn't get user media: \" + e.message);\n        }\n    }",
         "ctx": {
             "type": "event",
             "name": "respoke.LocalMedia#requesting-media",
